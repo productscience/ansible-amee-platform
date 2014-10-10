@@ -1,0 +1,89 @@
+# Install unlimited strength JCE
+- name: upload java unlimited strength crypto libraries
+  copy: >
+    src={{ item }}
+    dest="/usr/lib/jvm/java-7-oracle/jre/lib/security/{{ item }}"
+    backup=yes
+  with_items:
+    - local_policy.jar
+    - US_export_policy.jar
+
+- name: install source generation tools
+  apt: name={{ item}} state=present
+  with_items:
+      - git
+      - maven
+
+- name: setup directory structure for application
+  file: >
+      state=directory
+      owner={{ deploy_user_name }}
+      group={{ deploy_user_name }}
+      path={{ item }}
+  with_items:
+    - "/var/www/apps/amee-platform"
+    - "/var/www/apps/amee-platform/index"
+    - "/var/www/apps/amee-platform/releases"
+
+- name: checkout platform code from github
+  git: repo={{platform_git_repo}}
+       dest="/var/www/apps/amee-platform/source/"
+       accept_hostkey=True
+       version={{ git_branch }}
+       key_file=/home/{{ app }}/.ssh/deploy
+  tags:
+    - git
+
+- name: run maven build
+  command: mvn clean package -P tar
+       chdir="/var/www/apps/amee-platform/source/"
+  tags:
+    - maven
+
+- name: move build and extract it
+  command: mv "/var/www/apps/amee-platform/source/amee-platform-core/target/amee-platform-{{platform_release}}.tar.gz" /var/www/apps/amee-platform/releases/
+  tags: maven
+
+- name: extract it
+  command: tar xvf amee-platform-{{platform_release}}.tar.gz
+    chdir="/var/www/apps/amee-platform//releases/"
+  tags: maven
+
+- name: symlink the new build to current
+  file: >
+    src="/var/www/apps/amee-platform/releases/amee-platform-{{platform_release}}"
+    dest="/var/www/apps/amee-platform/current"
+    state=link
+  tags: maven
+
+- name: make sure we have our lucene index directory
+  file: >
+      state=directory
+      owner={{ deploy_user_name }}
+      group={{ deploy_user_name }}
+      path={{ platform_index_path }}
+  tags: maven
+
+- name: make sure all app are owned by the amee user
+  command: chown -R {{ deploy_user_name }}:{{ deploy_user_name }} /var/www/apps/amee-platform/
+  tags: maven
+
+- name: upload salt files used by the crypto
+  copy: >
+    src={{ item }}
+    dest="/var/www/apps/amee-platform/current/conf/"
+    owner={{ deploy_user_name }}
+    group={{ deploy_user_name }}
+  with_items:
+    - amee.salt
+    - amee.key
+  tags: maven
+
+- name: create config file for platform itself
+  template: >
+    src=amee.properties.j2
+    dest="/var/www/apps/amee-platform/current/conf/amee.properties"
+    owner={{ deploy_user_name }}
+    group={{ deploy_user_name }}
+  notify: restart amee
+  tags: maven

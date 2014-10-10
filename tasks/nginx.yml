@@ -1,0 +1,28 @@
+- name: install nginx
+  apt: name=nginx state=present
+  tags:
+    - nginx
+
+- name: add certificate for serving SSL
+  copy: >
+    src=amee.ssl.crt
+    dest={{ ngx_ssl_cert_path }}
+    backup=yes
+  tags:
+    - nginx
+
+- name: add accompanying key files for serving SSL
+  copy: >
+    src=amee.ssl.key
+    dest={{ ngx_ssl_cert_key }}
+    backup=yes
+  tags:
+    - nginx
+
+- name: add amee nginx vhost config
+  template: >
+    src="amee_platform.nginx.conf.j2"
+    dest="/etc/nginx/sites-enabled/amee"
+  notify: restart nginx
+  tags:
+    - nginx

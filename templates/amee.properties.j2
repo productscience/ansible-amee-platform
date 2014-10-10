@@ -1,0 +1,52 @@
+AMEE_SERVER_NAME=localhost
+AMEE_INSTANCE_NAME=local
+AMEE_APP_NAME=platform
+HOST_NAME=localhost
+
+PROTOCOL=http
+PORT=8888
+SECURE_PORT=8889
+RESOURCE_DEFAULT_TIMEOUT=15
+AMEE_TIME_ZONE=UTC
+TRAIN_ROUTE_SERVICE_URI=http://example.com
+AUTO_START_SCHEDULER=false
+
+# Logging
+LOG_LEVEL=WARN
+DEFAULT_LOG_LEVEL=INFO
+MAILLOG=false
+AIRBRAKE=false
+amee.logDir=/var/www/apps/amee-platform/current/logs
+
+# Search index
+INDEX_PATH=/mnt/amee-platform/index
+LUCENE_PATH=/mnt/amee-platform/index/lucene
+MASTER_INDEX=true
+SNAPSHOT_ENABLED=false
+SNAPSHOOTER_PATH=/var/www/apps/amee-platform/current/bin/snapshooter
+CLEAR_INDEX={{ platform_indexing_mode }}
+CHECK_DATA_CATEGORIES={{ platform_indexing_mode }}
+INDEX_DATA_CATEGORIES={{ platform_indexing_mode }}
+INDEX_DATA_ITEMS={{ platform_indexing_mode }}
+INDEX_DATA_CATEGORY_PATH_PREFIX=/
+INDEX_CHECK_SEARCHER_ON_COMMIT=false
+
+# Database
+DB_USERNAME={{ platform_db_user }}
+DB_PSWD={{ platform_db_password }}
+DB_URL_PREFIX=jdbc
+DB_URL=mysql://{{ platform_db_endpoint }}/{{ platform_db_user }}?autoReconnect=true&amp;autoReconnectForPools=true&amp;useCompression=false
+DB_DRIVER=com.mysql.jdbc.Driver
+VALIDATION_QUERY=SELECT 1 FROM DUAL
+DATABASE_PLATFORM=org.hibernate.dialect.MySQL5InnoDBDialect
+DATABASE=MYSQL
+SHOW_SQL=false
+
+# Messaging
+RABBIT_MQ_ADDRESS=localhost
+RABBIT_MQ_PORT=5672
+RABBIT_MQ_VHOST=/
+RABBIT_MQ_USERNAME={{ platform_mq_user }}
+RABBIT_MQ_PASSWORD={{ platform_mq_user_password }}
+MESSAGING_SCOPE=local
+MESSAGING_RUN_SLEEP=5000

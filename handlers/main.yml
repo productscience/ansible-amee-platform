@@ -1,0 +1,13 @@
+---
+# handlers file for amee_platform
+- name: restart nginx
+  sudo: yes
+  service: name=nginx state=restarted
+
+- name: reload nginx
+  sudo: yes
+  service: name=postgresql state=reloaded
+
+- name: restart amee
+  sudo: yes
+  service: name=amee state=restarted sleep=2

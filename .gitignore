@@ -1,0 +1,10 @@
+
+
+# keep credentials our of code
+*.salt
+*.key
+*.crt
+
+
+# and compiled jars
+*.jar
