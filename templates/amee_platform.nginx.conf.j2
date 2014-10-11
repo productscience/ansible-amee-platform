@@ -8,7 +8,7 @@ upstream amee-platform-secure {
 
 server {
     listen 80;
-    server_name {{ servername }};
+    server_name {{ platform_server_name }};
 
     location / {
         proxy_pass http://amee-platform;
@@ -33,7 +33,7 @@ server {
 
 server {
    listen 443;
-   server_name {{ servername }};
+   server_name {{ platform_server_name }};
    ssl on;
    ssl_certificate {{ platform_ngx_ssl_cert_path }};
    ssl_certificate_key {{ platform_ngx_ssl_key_path }};

@@ -1,8 +1,8 @@
 ---
 # defaults file for amee_platform
-
 # for the java application
 platform_app: amee
+platform_server_name: live.amee.com
 platform_local_policy_jar_path: "local_policy.jar"
 platform_US_export_policy_jar_path: "US_export_policy.jar"
 platform_salt_path: "amee.salt"
