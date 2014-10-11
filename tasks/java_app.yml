@@ -65,8 +65,14 @@
   tags: maven
 
 - name: make sure all app are owned by the amee user
-  command: chown -R {{ deploy_user_name }}:{{ deploy_user_name }} /var/www/apps/amee-platform/
-  tags: maven
+  command: chown -R {{ deploy_user_name }}:{{ deploy_user_name }} {{ item }}
+  with_items:
+    - "/var/www/apps/amee-platform/"
+    - "{{ platform_log_dir }}"
+  tags:
+    - maven
+    - restart
+
 
 - name: upload salt files used by the crypto
   copy: >
@@ -86,4 +92,6 @@
     owner={{ deploy_user_name }}
     group={{ deploy_user_name }}
   notify: restart amee
-  tags: maven
+  tags:
+    - maven
+    - restart
