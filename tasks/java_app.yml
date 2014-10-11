@@ -5,8 +5,8 @@
     dest="/usr/lib/jvm/java-7-oracle/jre/lib/security/{{ item }}"
     backup=yes
   with_items:
-    - {{ platform_local_policy_jar_path }}
-    - {{ platform_US_export_policy_jar_path }}
+    - "{{ platform_local_policy_jar_path }}"
+    - "{{ platform_US_export_policy_jar_path }}"
 
 - name: install source generation tools
   apt: name={{ item}} state=present
@@ -81,8 +81,8 @@
     owner={{ deploy_user_name }}
     group={{ deploy_user_name }}
   with_items:
-    - {{ platform_salt_path }}
-    - {{ platform_key_path }}
+    - "{{ platform_salt_path }}"
+    - "{{ platform_key_path }}"
   tags: maven
 
 - name: create config file for platform itself

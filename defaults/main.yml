@@ -6,7 +6,7 @@ platform_server_name: live.amee.com
 platform_local_policy_jar_path: "local_policy.jar"
 platform_US_export_policy_jar_path: "US_export_policy.jar"
 platform_salt_path: "amee.salt"
-platform_salt_key_path: "amee.key"
+platform_key_path: "amee.key"
 platform_indexing_mode: false
 platform_index_path: "/mnt/amee-platform/index"
 platform_log_dir: "/var/log/amee-platform/logs"
@@ -22,7 +22,7 @@ platform_mq_user_password: not_a_real_password
 platform_train_route: "http://trainservice.amee.com"
 
 # used by nginx for serving API requests over HTTPS
-platform_ngx_ssl_cert_file: "amee.crt"
-platform_ngx_ssl_key_file: "amee.key"
+platform_ngx_ssl_cert_file: "amee.ssl.crt"
+platform_ngx_ssl_key_file: "amee.ssl.key"
 platform_ngx_ssl_cert_path: "/etc/ssl/certs/amee.crt"
 platform_ngx_ssl_key_path: "/etc/ssl/certs/amee.key"
