@@ -35,8 +35,8 @@ server {
    listen 443;
    server_name {{ servername }};
    ssl on;
-   ssl_certificate {{ ngx_ssl_cert_path }};
-   ssl_certificate_key {{ ngx_ssl_cert_key }};
+   ssl_certificate {{ platform_ngx_ssl_cert_path }};
+   ssl_certificate_key {{ platform_ngx_ssl_key_path }};
 
    location / {
        proxy_pass http://amee-platform-secure;

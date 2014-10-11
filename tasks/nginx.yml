@@ -5,16 +5,16 @@
 
 - name: add certificate for serving SSL
   copy: >
-    src=amee.ssl.crt
-    dest={{ ngx_ssl_cert_path }}
+    src={{ platform_ngx_ssl_cert_file }}
+    dest={{ platform_ngx_ssl_cert_path }}
     backup=yes
   tags:
     - nginx
 
 - name: add accompanying key files for serving SSL
   copy: >
-    src=amee.ssl.key
-    dest={{ ngx_ssl_cert_key }}
+    src={{ platform_ngx_ssl_key_file }}
+    dest={{ platform_ngx_ssl_key_path }}
     backup=yes
   tags:
     - nginx
@@ -22,7 +22,8 @@
 - name: add amee nginx vhost config
   template: >
     src="amee_platform.nginx.conf.j2"
-    dest="/etc/nginx/sites-enabled/amee"
+    dest="/etc/nginx/sites-enabled/{{ platform_app }}"
   notify: restart nginx
   tags:
     - nginx
+    - restart

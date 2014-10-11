@@ -8,6 +8,6 @@
 - name: put platform start file on the platform
   template: >
     src=init.sh.j2
-    dest="/etc/init.d/amee"
+    dest="/etc/init.d/{{ platform_app }}"
     mode=0644
   tags: services

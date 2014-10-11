@@ -10,4 +10,4 @@
 
 - name: restart amee
   sudo: yes
-  service: name=amee state=restarted sleep=2
+  service: name={{ platform_app }} state=restarted sleep=2

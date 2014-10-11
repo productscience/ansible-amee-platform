@@ -1,3 +1,19 @@
 ---
 # defaults file for amee_platform
-platform_log_dir: /var/log/amee-platform/logs
+platform_app: amee
+platform_db_user: amee
+platform_db_endpoint: "connect-database-server.amee.com:3306"
+platform_indexing_mode: false
+platform_index_path: "/mnt/amee-platform/index"
+platform_log_dir: "/var/log/amee-platform/logs"
+platform_mq_user: platform_mq
+platform_mq_user_password: not_a_real_password
+platform_train_route: "http://trainservice.amee.com"
+platform_ngx_ssl_cert_file: "amee.crt"
+platform_ngx_ssl_key_file: "amee.key"
+platform_ngx_ssl_cert_path: "/etc/ssl/certs/amee.crt"
+platform_ngx_ssl_key_path: "/etc/ssl/certs/amee.key"
+platform_local_policy_jar_path: "local_policy.jar"
+platform_US_export_policy_jar_path: "US_export_policy.jar"
+platform_salt_path: "amee.salt"
+platform_salt_key_path: "amee.key"
