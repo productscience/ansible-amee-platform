@@ -95,4 +95,6 @@ BSD
 Author Information
 ------------------
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+This ansible role was created by Chris Adams of Product Science and David Keen, for deploying the amee platform to AWS infrastructure.
+
+Please send any queries to hello@productscience.co.uk, or create an issue in the project tracker.
