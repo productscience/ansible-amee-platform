@@ -24,6 +24,8 @@
     - "/var/www/apps/amee-platform"
     - "/var/www/apps/amee-platform/index"
     - "/var/www/apps/amee-platform/releases"
+    - "{{ platform_log_dir }}"
+  tags: dirs
 
 - name: checkout platform code from github
   git: repo={{platform_git_repo}}
@@ -72,6 +74,7 @@
   tags:
     - maven
     - restart
+    - dirs
 
 
 - name: upload salt files used by the crypto
