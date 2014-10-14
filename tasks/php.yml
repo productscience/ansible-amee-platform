@@ -1,0 +1,23 @@
+---
+- name: install php
+  apt: name={{ item }} state=present update_cache=yes
+  with_items:
+      - php5-cli
+      - php5-mysql
+      - php5-fpm
+
+  tags: php
+
+- name: add the line to the php ini file adjust path handling
+  lineinfile: dest=/etc/php5/fpm/php.ini regexp="^;cgi.fix_pathinfo" line="cgi.fix_pathinfo=0"
+  tags: php
+
+- name: upload the railservice php app
+  copy: >
+    src=railservice
+    dest=/var/www/apps/railservice
+  tags: php
+
+- name: restart php
+  service: name=php5-fpm state=restarted sleep=3
+  tags: php

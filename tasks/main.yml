@@ -4,6 +4,7 @@
 - include: java_app.yml
 - include: nginx.yml
 - include: message_queue.yml
+- include: php.yml
 
 - name: put platform start file on the platform
   template: >
