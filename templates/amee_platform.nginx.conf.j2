@@ -49,6 +49,7 @@ server {
    listen 443;
    server_name {{ platform_server_name }};
    ssl on;
+   ssl_protocols TLSv1.2 TLSv1.1 TLSv1;
    ssl_certificate {{ platform_ngx_ssl_cert_path }};
    ssl_certificate_key {{ platform_ngx_ssl_key_path }};
 
